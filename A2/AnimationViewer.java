@@ -43,6 +43,12 @@ class AnimationViewer extends JComponent implements Runnable {
 			} case OVAL: {
 				shapes.add(new OvalShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
 				break;
+			} case DYNAMIC: {
+				shapes.add(new DynamicRectangleShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
+				break;
+			} case IMAGE: {
+				shapes.add(new ImageRectangleShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType,currentImageFileName));
+				break;
 			}
 	   }
     }

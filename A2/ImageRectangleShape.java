@@ -1,10 +1,10 @@
 /*
  *	===============================================================================
- *	RectangleShape.java : A shape that is a rectangle.
+ *	ImageRectangleShape.java : A shape that is an Image.
  *  YOUR UPI: CCOR065
  *	=============================================================================== */
 import java.awt.*;
-class ImageRectangleShape  extends Shape {
+class ImageRectangleShape  extends RectangleShape {
     private Image image = null;
     private String imageFilename = "java.gif";
     public ImageRectangleShape() {}
