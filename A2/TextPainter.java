@@ -28,5 +28,8 @@ class TextPainter implements Painter {
 	}
 	@Override
 	public void setGraphics(Graphics g) {}
+	@Override
+	public void drawImage(Image img, int x, int y, int width, int height){
+		System.out.printf("Image[x=%d,y=%d,width=%d,height=%d]\n", x, y, width, height);}
 
 }

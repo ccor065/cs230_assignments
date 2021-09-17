@@ -1,11 +1,11 @@
 /*
  *  ============================================================================================
- *  enum which defines the type of shapes in A1
- *  YOUR UPI: ANSWER
+ *  enum which defines the type of shapes in A2
+ *  YOUR UPI: CCOR065
  *  ============================================================================================
  */
 import java.util.*;
-enum ShapeType { RECTANGLE, OVAL, TRIANGLE, DYNAMIC;
+enum ShapeType { RECTANGLE, OVAL, TRIANGLE, DYNAMIC, IMAGE;
 	private static final Random rand = new Random(30);
 	private static final int SIZE = values().length;
 	public static final ShapeType getShapeType(int index) { return values()[index]; }
