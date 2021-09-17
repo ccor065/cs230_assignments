@@ -123,4 +123,28 @@ class AnimationViewer extends JComponent implements Runnable {
             Thread.sleep((long)milliseconds);
         } catch(InterruptedException ie) {}
     }
+	public void setCurrentWidth(int w){
+		currentWidth = w;
+		for (Shape shape:shapes){
+			if (shape.selected == true){
+				shape.setWidth(w);
+			}
+		}
+	}
+	public void setCurrentHeight(int h){
+		currentHeight= h;
+		for (Shape shape:shapes){
+			if (shape.selected == true){
+				shape.setHeight(h);
+			}
+		}
+	}
+	public void setCurrentColor(Color c){
+		for (Shape shape:shapes){
+			if (shape.selected == true){
+				shape.setColor(c);
+			}
+		}
+		currentColor = c;
+	}
 }
