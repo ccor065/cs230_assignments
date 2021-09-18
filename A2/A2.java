@@ -91,5 +91,53 @@ public class A2  extends JFrame {
 		}
 	}
 
-	//inner member class
+	class WidthActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+		int prevWidth = panel.getCurrentWidth();
+		try {
+			int width = Integer.parseInt(widthTextField.getText());
+			if(width >=1 && width <= (Shape.DEFAULT_MARGIN_WIDTH/2)){
+				panel.setCurrentWidth(width);
+				widthTextField.setText(width + "");
+			} else {throw new Exception();}
+			}catch (Exception f){
+				panel.setCurrentWidth(prevWidth);
+				widthTextField.setText(prevWidth + "");
+			}
+		}
+	}
+	
+	class HeightActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+		int prevHeight = panel.getCurrentHeight();
+		try {
+			int height = Integer.parseInt(heightTextField.getText());
+			if(height >=1 && height <= (Shape.DEFAULT_MARGIN_HEIGHT/2)){
+				panel.setCurrentHeight(height);
+				heightTextField.setText(height + "");
+			} else {throw new Exception();}
+			} catch (Exception f){
+				panel.setCurrentHeight(prevHeight);
+				heightTextField.setText(prevHeight + "");
+			}
+		}
+	}
+	class FillActionListener implements ActionListener {
+	public void actionPerformed(ActionEvent e){
+		try {
+			Color initial = panel.getCurrentColor();
+			Color newColor = JColorChooser.showDialog(null, "Fill Color", initial);
+			if(newColor == null){throw new Exception();}
+			panel.setCurrentColor(newColor);
+			fillButton.setForeground(newColor);
+		} catch (Exception ex){
+			panel.setCurrentColor(panel.getCurrentColor());
+			fillButton.setForeground(panel.getCurrentColor());
+		}
+	}
+}
+
+
+
+
 }
