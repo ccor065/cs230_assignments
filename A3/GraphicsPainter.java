@@ -1,7 +1,7 @@
 /*
  *  ============================================================================================
  *  Implementation of the Painter interface that delegates drawing to a Graphics object
- *  YOUR UPI: CCOR065, added drawImage method
+ *  YOUR UPI: ANSWER
  *  ============================================================================================
  */
 import java.awt.*;
@@ -15,6 +15,10 @@ class GraphicsPainter implements Painter {
 		this.g = (Graphics2D)g;
 	}
 	@Override
+	public void drawImage(Image img, int x, int y, int width, int height) {
+		g.drawImage(img, x, y, width, height, null);
+	}
+	@Override
 	public void fillRect(int x, int y, int width, int height) {
 		g.fillRect(x, y, width, height);
 	}
@@ -25,11 +29,6 @@ class GraphicsPainter implements Painter {
 	public void fillPolygon(Polygon p) {
 		g.fillPolygon(p);
 	}
-	@Override
-	public void drawImage(Image img, int x, int y, int width, int height){
-		g.drawImage(img, x, y, width, height, null);
-	}
-
 	@Override
 	public void setPaint(Color c) {
 		g.setPaint(c);

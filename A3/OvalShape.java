@@ -1,12 +1,12 @@
 /*
  *	===============================================================================
  *	OvalShape.java : A shape that is an oval.
- *  YOUR UPI: CCOR065 
+ *  YOUR UPI:
  *	=============================================================================== */
 import java.awt.*;
 class OvalShape extends Shape {
-	public OvalShape() {}
 	/** constructor to create an oval with default values */
+	public OvalShape() {}
 	public OvalShape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt) {
 		super(x ,y ,w, h ,mw ,mh, c, pt);
 	}

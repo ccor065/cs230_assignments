@@ -1,20 +1,25 @@
 /*
  *	===============================================================================
  *	ImageRectangleShape.java : A shape that is an Image.
- *  YOUR UPI: CCOR065
+ *  YOUR UPI: CCOR065 - Implemented all methoods
  *	=============================================================================== */
 import java.awt.*;
 class ImageRectangleShape  extends RectangleShape {
     private Image image = null;
     private String imageFilename = "java.gif";
-    public ImageRectangleShape() {}
+    public ImageRectangleShape() {
+		image = loadImage();
+	}
 	public ImageRectangleShape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt, String name) {
 		super(x ,y ,w, h ,mw ,mh, c, pt);
 		this.imageFilename = name;
+		image = loadImage();
 	}
 
-	public void loadImage(){
-	    // implement
+	public Image loadImage(){
+
+	return  Toolkit.getDefaultToolkit().createImage(A2.class.getResource(imageFilename));
+
 	}
 	@Override
 

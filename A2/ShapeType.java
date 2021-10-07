@@ -1,7 +1,7 @@
 /*
  *  ============================================================================================
  *  enum which defines the type of shapes in A2
- *  YOUR UPI: CCOR065
+ *  YOUR UPI: CCOR065 - added DYNAMIC and IMAGE type to enum.
  *  ============================================================================================
  */
 import java.util.*;

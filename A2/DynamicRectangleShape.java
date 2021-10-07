@@ -1,3 +1,10 @@
+/*
+ * ==========================================================================================
+ * DunamicRectangleShape.java : a rectnagel shape that chnages orientation when it meets the
+ * window boarder.
+ * YOUR UPI: CCOR065 - Implemented all methods. 
+ ========================================================================
+ */
 import java.awt.*;
 class  DynamicRectangleShape extends RectangleShape {
 
@@ -13,14 +20,13 @@ class  DynamicRectangleShape extends RectangleShape {
 	@Override
 	public void draw(Painter g) {
 		g.setPaint(color);
-		if (this.path.isBouncedBack == true){
-			g.fillRect(x, y, height, width);
-		} else {g.fillRect(x, y, width, height);}
+		if (this.path.getIsBouncedBack() == true){
+		    int prevWidth = this.width;
+		    this.width = height;
+		    this.height = prevWidth;
+			path.setIsBouncedBack();
+		}
+		g.fillRect(x, y, width, height);
 	}
-	/** Returns whether the point is in the rectangle or not
-	 * @return true if and only if the point is in the rectangle, false otherwise. */
-	@Override
-	public boolean contains(Point mousePt) {
-		return (x <= mousePt.x && mousePt.x <= (x + width + 1)	&&	y <= mousePt.y && mousePt.y <= (y + height + 1));
-	}
+
 }

@@ -1,8 +1,7 @@
 /*
  *  ============================================================================================
  *  A1.java : Extends JFrame and contains a panel where shapes move around on the screen.
- *  YOUR UPI: CCOR065 - added FillActionListener, HeightActionListener, WidthActionListener
- *	methods.
+ *  YOUR UPI: ANSWER
  *  ============================================================================================
  */
 import javax.swing.*;
@@ -11,22 +10,23 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.util.ArrayList;
 
-public class A2  extends JFrame {
+public class A3  extends JFrame {
 	private AnimationViewer panel;  // panel for bouncing area
 	JButton fillButton;
 	JComboBox<ShapeType> shapesComboBox;
 	JComboBox<PathType> pathComboBox;
-	JTextField heightTextField, widthTextField;
-	/** main method for A2 */
+	JTextField heightTextField, widthTextField, textTextField;
+	JComboBox<ShapeType> InnerShapesComboBox;
+	/** main method for A1 */
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new A2();
+				new A3();
 			}
 		});
 	}
 	/** constructor to initialise components */
-	public A2() {
+	public A3() {
 		super("Bouncing Application");
 		panel = new AnimationViewer(true);
 		add(panel, BorderLayout.CENTER);
@@ -52,16 +52,23 @@ public class A2  extends JFrame {
 		shapesComboBox.setModel(new DefaultComboBoxModel<ShapeType>(ShapeType.values()));
 		shapesComboBox.setToolTipText("Set shape");
 		shapesComboBox.addActionListener( new ShapeActionListener()) ;
+		InnerShapesComboBox = new JComboBox<ShapeType>();
+		InnerShapesComboBox.setModel(new DefaultComboBoxModel<ShapeType>(new ShapeType[]{ShapeType.RECTANGLE, ShapeType.OVAL}));
+		InnerShapesComboBox.setToolTipText("Set Inner shape");
+	//	InnerShapesComboBox.addActionListener( new InnerShapeActionListener()) ;
 		pathComboBox = new JComboBox<PathType>();
 		pathComboBox.setModel(new DefaultComboBoxModel<PathType>(PathType.values()));
 		pathComboBox.addActionListener( new PathActionListener());
 		heightTextField = new JTextField(""+ Shape.DEFAULT_HEIGHT);
 		heightTextField.setToolTipText("Set Height");
 		heightTextField.addActionListener( new HeightActionListener());
-		///et up the width TextField
+		//Set up the width TextField
 		widthTextField = new JTextField(""+ Shape.DEFAULT_WIDTH);
 		widthTextField.setToolTipText("Set Width");
 		widthTextField.addActionListener( new WidthActionListener());
+		textTextField = new JTextField("" + Shape.DEFAULT_TEXT);
+		textTextField.setToolTipText("Set Text");
+	//	textTextField.addActionListener( new TextActionListener());
 		//Set up the fill colour button
 		fillButton = new JButton("Fill");
 		fillButton.setToolTipText("Set Fill Color");
@@ -72,12 +79,16 @@ public class A2  extends JFrame {
 		toolsPanel.setLayout(new BoxLayout(toolsPanel, BoxLayout.X_AXIS));
 		toolsPanel.add(new JLabel(" Shape: ", JLabel.RIGHT));
 		toolsPanel.add(shapesComboBox);
+		toolsPanel.add(new JLabel(" Inner Shape: ", JLabel.RIGHT));
+		toolsPanel.add(InnerShapesComboBox);
 		toolsPanel.add(new JLabel(" Path: ", JLabel.RIGHT));
 		toolsPanel.add(pathComboBox);
 		toolsPanel.add(new JLabel(" Width: ", JLabel.RIGHT));
 		toolsPanel.add(widthTextField);
 		toolsPanel.add( new JLabel(" Height: ", JLabel.RIGHT));
 		toolsPanel.add(heightTextField);
+		toolsPanel.add( new JLabel(" Text: ", JLabel.RIGHT));
+		toolsPanel.add(textTextField);
 		toolsPanel.add(fillButton);
 		return toolsPanel;
 	}
@@ -91,54 +102,39 @@ public class A2  extends JFrame {
 			panel.setCurrentPathType(pathComboBox.getSelectedIndex());
 		}
 	}
-
 	class WidthActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e){
-		int prevWidth = panel.getCurrentWidth();
-		try {
-			int width = Integer.parseInt(widthTextField.getText());
-			if(width >=1 && width <= (Shape.DEFAULT_MARGIN_WIDTH/2)){
-				panel.setCurrentWidth(width);
-				widthTextField.setText(width + "");
-			} else {throw new Exception();}
-			}catch (Exception f){
-				panel.setCurrentWidth(prevWidth);
-				widthTextField.setText(prevWidth + "");
+		public void actionPerformed(ActionEvent e) {
+			try {
+				int newValue = Integer.parseInt(widthTextField.getText());
+				if (newValue > 0 && newValue < Shape.DEFAULT_MARGIN_WIDTH/2 ) // if the value is valid, then change the current height
+					panel.setCurrentWidth(newValue);
+				else
+					widthTextField.setText(panel.getCurrentWidth()+""); //undo the changes
+			} catch (Exception ex) {
+				widthTextField.setText(panel.getCurrentWidth()+""); //if the number entered is invalid, reset it
 			}
 		}
 	}
-
 	class HeightActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e){
-		int prevHeight = panel.getCurrentHeight();
-		try {
-			int height = Integer.parseInt(heightTextField.getText());
-			if(height >=1 && height <= (Shape.DEFAULT_MARGIN_HEIGHT/2)){
-				panel.setCurrentHeight(height);
-				heightTextField.setText(height + "");
-			} else {throw new Exception();}
-			} catch (Exception f){
-				panel.setCurrentHeight(prevHeight);
-				heightTextField.setText(prevHeight + "");
+		public void actionPerformed(ActionEvent e) {
+			try {
+				int newValue = Integer.parseInt(heightTextField.getText());
+				if (newValue > 0 && newValue < Shape.DEFAULT_MARGIN_HEIGHT/2 ) // if the value is valid, then change the current height
+					panel.setCurrentHeight(newValue);
+				else
+					heightTextField.setText(panel.getCurrentHeight()+""); //undo the changes
+			} catch (Exception ex) {
+				heightTextField.setText(panel.getCurrentHeight()+""); //if the number entered is invalid, reset it
 			}
 		}
 	}
 	class FillActionListener implements ActionListener {
-	public void actionPerformed(ActionEvent e){
-		try {
-			Color initial = panel.getCurrentColor();
-			Color newColor = JColorChooser.showDialog(null, "Fill Color", initial);
-			if(newColor == null){throw new Exception();}
-			panel.setCurrentColor(newColor);
-			fillButton.setForeground(newColor);
-		} catch (Exception ex){
-			panel.setCurrentColor(panel.getCurrentColor());
-			fillButton.setForeground(panel.getCurrentColor());
+		public void actionPerformed( ActionEvent e) {
+			Color newColor = JColorChooser.showDialog(panel, "Fill Color", panel.getCurrentColor());
+			if ( newColor != null) {
+				fillButton.setForeground(newColor);
+				panel.setCurrentColor(newColor);
+			}
 		}
 	}
-}
-
-
-
-
 }

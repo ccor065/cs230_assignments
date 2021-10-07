@@ -2,8 +2,7 @@
  * ==========================================================================================
  * AnimationViewer.java : Moves shapes around on the screen according to different paths.
  * It is the main drawing area where shapes are added and manipulated.
- * YOUR UPI: CCOR065 - added DYNAMIC and IMAGE types to switch statement in create new shape
- *					method.
+ * YOUR UPI:
  * ==========================================================================================
  */
 
@@ -21,7 +20,6 @@ class AnimationViewer extends JComponent implements Runnable {
     private PathType currentPathType=Shape.DEFAULT_PATHTYPE;  // the current path type
     private Color currentColor=Shape.DEFAULT_COLOR; // the current fill colour of a shape
     private int marginWidth=Shape.DEFAULT_MARGIN_WIDTH, marginHeight = Shape.DEFAULT_MARGIN_HEIGHT, currentWidth=Shape.DEFAULT_WIDTH, currentHeight=Shape.DEFAULT_HEIGHT;
-	private String currentImageFileName= "java.gif";
 
      /** Constructor of the AnimationViewer */
     public AnimationViewer(boolean isGraphicsVersion) {
@@ -38,34 +36,16 @@ class AnimationViewer extends JComponent implements Runnable {
 			case RECTANGLE: {
         		shapes.add( new RectangleShape(x, y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
                 break;
-			} case TRIANGLE: {
-				shapes.add(new TriangleShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
-				break;
 			} case OVAL: {
 				shapes.add(new OvalShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
-				break;
-			} case DYNAMIC: {
-				shapes.add(new DynamicRectangleShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
-				break;
-			} case IMAGE: {
-				shapes.add(new ImageRectangleShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType,currentImageFileName));
 				break;
 			}
 	   }
     }
-	/** get the current width
-	 * @return currentWidth - the width value */
-	public int getCurrentWidth() { return currentWidth; }
-	/** get the current height
-	 * @return currentHeight - the height value */
-	public int getCurrentHeight() { return currentHeight; }
-	/** get the current fill colour
-	 * @return currentColor - the fill colour value */
-	public Color getCurrentColor() { return currentColor; }
     /**    move and paint all shapes within the animation area
      * @param g    the Graphics control */
     public void paintComponent(Graphics g) {
-		((GraphicsPainter)painter).setGraphics(g);
+		painter.setGraphics(g);
 		super.paintComponent(g);
         for (Shape currentShape: shapes) {
             currentShape.move();
@@ -81,6 +61,38 @@ class AnimationViewer extends JComponent implements Runnable {
 	public void setCurrentPathType(int pt) {
 		currentPathType = PathType.getPathType(pt);
 	}
+	/** get the current height
+	 * @return currentHeight - the height value */
+	public int getCurrentHeight() { return currentHeight; }
+	/** set the current height and the height for all currently selected shapes
+	 * @param h	the new height value */
+	public void setCurrentHeight(int h) {
+		currentHeight = h;
+		for (Shape currentShape: shapes)
+			if ( currentShape.isSelected())
+				currentShape.setHeight(currentHeight);
+	}
+	/** get the current width
+	 * @return currentWidth - the width value */
+	public int getCurrentWidth() { return currentWidth; }
+	/** set the current width and the width for all currently selected shapes
+	 * @param w	the new width value */
+	public void setCurrentWidth(int w) {
+		currentWidth = w;
+		for (Shape currentShape: shapes)
+			if ( currentShape.isSelected())
+				currentShape.setWidth(currentWidth);
+	}
+	/** get the current fill colour
+	 * @return currentColor - the fill colour value */
+	public Color getCurrentColor() { return currentColor; }
+	public void setCurrentColor(Color bc) {
+		currentColor = bc;
+		for (Shape currentShape: shapes)
+			if ( currentShape.isSelected())
+				currentShape.setColor(currentColor);
+	}
+
     // you don't need to make any changes after this line ______________
     /**    update the painting area
      * @param g    the graphics control */
@@ -124,28 +136,4 @@ class AnimationViewer extends JComponent implements Runnable {
             Thread.sleep((long)milliseconds);
         } catch(InterruptedException ie) {}
     }
-	public void setCurrentWidth(int w){
-		currentWidth = w;
-		for (Shape shape:shapes){
-			if (shape.selected == true){
-				shape.setWidth(w);
-			}
-		}
-	}
-	public void setCurrentHeight(int h){
-		currentHeight= h;
-		for (Shape shape:shapes){
-			if (shape.selected == true){
-				shape.setHeight(h);
-			}
-		}
-	}
-	public void setCurrentColor(Color c){
-		for (Shape shape:shapes){
-			if (shape.selected == true){
-				shape.setColor(c);
-			}
-		}
-		currentColor = c;
-	}
 }
