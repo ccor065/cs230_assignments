@@ -1,10 +1,9 @@
 /* ==============================================
  *  Shape.java : The superclass of all shapes.
  *  A shape defines various properties, including selected, colour, width and height.
- *  YOUR UPI: ANSWER
+ *  YOUR UPI: CCOR065, implemented string and NestedShape functionality
  *  ===============================================================================
  */
-
 import java.awt.*;
 abstract class Shape {
     public static final PathType DEFAULT_PATHTYPE = PathType.BOUNCE;
@@ -16,6 +15,12 @@ abstract class Shape {
     protected MovingPath path = new BouncingPath(1, 2);            // the moving path
     protected Color color=DEFAULT_COLOR;
     protected boolean selected = false;    // draw handles if selected
+    protected String text = DEFAULT_TEXT;
+    protected NestedShape parent;
+
+
+    public NestedShape getParent(){return this.parent;}
+    public void setParent(NestedShape s){this.parent = s;}
 
     public Shape() {}
     /** constructor to create a shape
@@ -27,6 +32,17 @@ abstract class Shape {
      * @param mh        the margin height of the animation panel
      * @param c        the colour of the new shape
      * @param typeOfPath         the path of the new shape  */
+    public Shape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt, String m) {
+        this.x = x;
+        this.y = y;
+        marginWidth = mw;
+        marginHeight = mh;
+        width = w;
+        height = h;
+        color = c;
+        text = m;
+        setPath(pt);
+    }
     public Shape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt) {
         this.x = x;
         this.y = y;
@@ -35,12 +51,13 @@ abstract class Shape {
         width = w;
         height = h;
         color = c;
+
         setPath(pt);
     }
     /** Return a string representation of the shape, containing
      * the String representation of each element. */
     public String toString() {
-		return String.format("%s:[x=%d,y=%d,width=%d,height=%d,color=%s]", this.getClass().getName(), x,y,width,height,color);
+		return String.format("%s:[x=%d,y=%d,width=%d,height=%d,color=%s,text=%s]", this.getClass().getName(), x,y,width,height,color,text);
 	}
     /** Set the path of the shape.
      * @param pathID     the path  */
@@ -52,6 +69,9 @@ abstract class Shape {
 			}
 		}
     }
+    public String getText(){return this.text;}
+    public void setText(String m){this.text = m;}
+    public void drawString(Painter g){ g.drawString(text, x, y, width, height);}
     /** Return the x-coordinate of the shape.
      * @return the x coordinate */
     public int getX() { return this.x; }

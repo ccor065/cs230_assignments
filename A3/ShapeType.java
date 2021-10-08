@@ -1,11 +1,11 @@
 /*
  *  ============================================================================================
  *  enum which defines the type of shapes in A1
- *  YOUR UPI: ANSWER
+ *  YOUR UPI: CCOR065, added NESTED to enum
  *  ============================================================================================
  */
 import java.util.*;
-enum ShapeType { RECTANGLE, OVAL;
+enum ShapeType { RECTANGLE, OVAL, NESTED;
 	private static final Random rand = new Random(30);
 	private static final int SIZE = values().length;
 	public static final ShapeType getShapeType(int index) { return values()[index]; }

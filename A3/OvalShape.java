@@ -1,7 +1,7 @@
 /*
  *	===============================================================================
  *	OvalShape.java : A shape that is an oval.
- *  YOUR UPI:
+ *  YOUR UPI:CCOR065, added overloaded constructor
  *	=============================================================================== */
 import java.awt.*;
 class OvalShape extends Shape {
@@ -10,6 +10,9 @@ class OvalShape extends Shape {
 	public OvalShape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt) {
 		super(x ,y ,w, h ,mw ,mh, c, pt);
 	}
+  public OvalShape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt, String m) {
+    super(x ,y ,w, h ,mw ,mh, c, pt, m);
+  }
 	/** draw the oval with the fill colour
 	 *	If it is selected, draw the handles
 	 *	@param g	the Graphics control */

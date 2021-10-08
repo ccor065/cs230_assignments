@@ -2,7 +2,7 @@
  * ==========================================================================================
  * AnimationViewer.java : Moves shapes around on the screen according to different paths.
  * It is the main drawing area where shapes are added and manipulated.
- * YOUR UPI:
+ * YOUR UPI: CCOR065, added setter and getter of currentText, updated paint, and create new shape.
  * ==========================================================================================
  */
 
@@ -20,7 +20,17 @@ class AnimationViewer extends JComponent implements Runnable {
     private PathType currentPathType=Shape.DEFAULT_PATHTYPE;  // the current path type
     private Color currentColor=Shape.DEFAULT_COLOR; // the current fill colour of a shape
     private int marginWidth=Shape.DEFAULT_MARGIN_WIDTH, marginHeight = Shape.DEFAULT_MARGIN_HEIGHT, currentWidth=Shape.DEFAULT_WIDTH, currentHeight=Shape.DEFAULT_HEIGHT;
+		private String currentText = Shape.DEFAULT_TEXT;
 
+		public void setCurrentText(String text){
+			this.currentText = text;
+			for (Shape shape :shapes){
+			    if (shape.isSelected()){
+				shape.setText(text);
+			    }
+			}
+		}
+		public String getCurrentText(){return this.currentText;}
      /** Constructor of the AnimationViewer */
     public AnimationViewer(boolean isGraphicsVersion) {
 		if (isGraphicsVersion) {
@@ -31,28 +41,29 @@ class AnimationViewer extends JComponent implements Runnable {
     /** create a new shape
      * @param x     the x-coordinate of the mouse position
      * @param y    the y-coordinate of the mouse position */
-	protected void createNewShape(int x, int y) {
-		switch (currentShapeType) {
-			case RECTANGLE: {
-        		shapes.add( new RectangleShape(x, y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
-                break;
-			} case OVAL: {
-				shapes.add(new OvalShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType));
-				break;
-			}
-	   }
-    }
+		 protected void createNewShape(int x, int y) {
+		 	switch (currentShapeType) {
+		 		case RECTANGLE: {
+		     		shapes.add( new RectangleShape(x, y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType, currentText));
+		             break;
+		 		} case OVAL: {
+		 			shapes.add(new OvalShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType, currentText));
+		 			break;
+		 		}
+		    }
+		 }
     /**    move and paint all shapes within the animation area
      * @param g    the Graphics control */
-    public void paintComponent(Graphics g) {
-		painter.setGraphics(g);
-		super.paintComponent(g);
-        for (Shape currentShape: shapes) {
-            currentShape.move();
-		    currentShape.draw(painter);
-            currentShape.drawHandles(painter);
-		}
-    }
+		 public void paintComponent(Graphics g) {
+		 	painter.setGraphics(g);
+		 	super.paintComponent(g);
+		     for (Shape shape: shapes) {
+		         shape.move();
+		 	    shape.draw(painter);
+		         shape.drawHandles(painter);
+		 		shape.drawString(painter);
+		 	}
+		 }
     public ShapeType getCurrentShapeType() { return currentShapeType; }
     public void setCurrentShapeType(int st) {
 		currentShapeType = ShapeType.getShapeType(st);

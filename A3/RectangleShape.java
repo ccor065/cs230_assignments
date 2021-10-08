@@ -1,7 +1,9 @@
+
+
 /*
  *	===============================================================================
  *	RectangleShape.java : A shape that is a rectangle.
- *  YOUR UPI:
+ *  YOUR UPI: CCOR065, added overloaded constructor
  *	=============================================================================== */
 import java.awt.*;
 class RectangleShape extends Shape {
@@ -11,6 +13,9 @@ class RectangleShape extends Shape {
 	public RectangleShape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt) {
 		super(x ,y ,w, h ,mw ,mh, c, pt);
 	}
+  public RectangleShape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt, String m) {
+    super(x ,y ,w, h ,mw ,mh, c, pt, m);
+  }
 	/** draw the rectangle with the fill colour
 	 *	If it is selected, draw the handles
 	 *	@param g	the Graphics control */

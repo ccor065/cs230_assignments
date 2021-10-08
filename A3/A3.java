@@ -1,7 +1,7 @@
 /*
  *  ============================================================================================
  *  A1.java : Extends JFrame and contains a panel where shapes move around on the screen.
- *  YOUR UPI: ANSWER
+ *  YOUR UPI: CCOR065 added TextActionListener
  *  ============================================================================================
  */
 import javax.swing.*;
@@ -128,6 +128,11 @@ public class A3  extends JFrame {
 			}
 		}
 	}
+	class TextActionListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		panel.setCurrentText(textTextField.getText());
+	}
+}
 	class FillActionListener implements ActionListener {
 		public void actionPerformed( ActionEvent e) {
 			Color newColor = JColorChooser.showDialog(panel, "Fill Color", panel.getCurrentColor());
