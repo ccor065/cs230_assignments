@@ -71,7 +71,9 @@ abstract class Shape {
     }
     public String getText(){return this.text;}
     public void setText(String m){this.text = m;}
-    public void drawString(Painter g){ g.drawString(text, x, y, width, height);}
+    public void drawString(Painter g){
+      g.setPaint(Color.black);
+      g.drawString(text, x, y, width, height);}
     /** Return the x-coordinate of the shape.
      * @return the x coordinate */
     public int getX() { return this.x; }

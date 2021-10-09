@@ -69,7 +69,7 @@ public class A3  extends JFrame {
 		widthTextField.addActionListener( new WidthActionListener());
 		textTextField = new JTextField("" + Shape.DEFAULT_TEXT);
 		textTextField.setToolTipText("Set Text");
-		textTextField.addActionListener( new TextActionListener());
+	/textTextField.addActionListener( new TextActionListener());
 		//Set up the fill colour button
 		fillButton = new JButton("Fill");
 		fillButton.setToolTipText("Set Fill Color");

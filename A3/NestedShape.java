@@ -1,6 +1,6 @@
 /*
  *	===============================================================================
- *	NestedShape.java : A nested shape class.
+ *	NestedShape.java : A shape that has a retcangle boundary and a smaller shape inside
  *  YOUR UPI: CCOR065 all implementations
  *	=============================================================================== */
 import java.awt.*;

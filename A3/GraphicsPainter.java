@@ -47,7 +47,12 @@ class GraphicsPainter implements Painter {
 
 	}
 	public void drawString(String text, int x, int y, int width, int height){
-		g.drawString(text, (x+(width/2)), (y+(height/2)));
+		FontMetrics fm = g.getFontMetrics();
+		x = x + ((width - fm.stringWidth(text))/2);
+		int space = ((height -(fm.getAscent() + fm.getDescent()))/2);
+		y= y + space + fm.getAscent();
+
+		g.drawString(text, x, y);
 	}
 	public void drawRect(int x, int y, int width, int height){
 		g.drawRect(x, y, width, height);	}
