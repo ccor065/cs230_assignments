@@ -20,6 +20,7 @@ class OvalShape extends Shape {
 	public void draw(Painter g2d) {
 		g2d.setPaint(color);
 		g2d.fillOval(x, y, width, height);
+	
 	}
 	/** Returns whether the point is in the oval or not
 	 * @return true if and only if the point is in the oval, false otherwise. */

@@ -1,7 +1,7 @@
 /*
  *  ============================================================================================
  *  Implementation of the Painter interface that delegates drawing to a Graphics object
- *  YOUR UPI: ANSWER
+ *  YOUR UPI: CCOR065, added drawRect, drawString and translate
  *  ============================================================================================
  */
 import java.awt.*;
@@ -42,4 +42,13 @@ class GraphicsPainter implements Painter {
             g.fillRect(x + width -2, y-2, 4, 4);
         }
 	}
+	public void translate(int x, int y){
+		g.translate(x, y);
+
+	}
+	public void drawString(String text, int x, int y, int width, int height){
+		g.drawString(text, (x+(width/2)), (y+(height/2)));
+	}
+	public void drawRect(int x, int y, int width, int height){
+		g.drawRect(x, y, width, height);	}
 }

@@ -1,7 +1,7 @@
 /*
  *  ============================================================================================
  *  Painter.java : Painter interface
- *  YOUR UPI: CCOR065, added drawSring() method,
+ *  YOUR UPI: CCOR065, added drawSring, drawRect and translate methods.
  *  ============================================================================================
  */
 import java.awt.*;
@@ -14,4 +14,6 @@ interface Painter {
 	public void setGraphics(Graphics g);
 	public void drawHandles(boolean isSelected, int x, int y, int width, int height);
 	public void drawString(String text, int x, int y, int width, int height);
+	public void drawRect(int x, int y, int width, int height);
+	public void translate(int x, int y);
 }

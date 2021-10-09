@@ -1,7 +1,8 @@
+
 /*
  *  ============================================================================================
  *  A1.java : Extends JFrame and contains a panel where shapes move around on the screen.
- *  YOUR UPI: CCOR065 added TextActionListener
+ *  YOUR UPI: CCOR065 added TextActionListener, InnerShapeActionListener
  *  ============================================================================================
  */
 import javax.swing.*;
@@ -55,7 +56,7 @@ public class A3  extends JFrame {
 		InnerShapesComboBox = new JComboBox<ShapeType>();
 		InnerShapesComboBox.setModel(new DefaultComboBoxModel<ShapeType>(new ShapeType[]{ShapeType.RECTANGLE, ShapeType.OVAL}));
 		InnerShapesComboBox.setToolTipText("Set Inner shape");
-	//	InnerShapesComboBox.addActionListener( new InnerShapeActionListener()) ;
+		InnerShapesComboBox.addActionListener( new InnerShapeActionListener()) ;
 		pathComboBox = new JComboBox<PathType>();
 		pathComboBox.setModel(new DefaultComboBoxModel<PathType>(PathType.values()));
 		pathComboBox.addActionListener( new PathActionListener());
@@ -68,7 +69,7 @@ public class A3  extends JFrame {
 		widthTextField.addActionListener( new WidthActionListener());
 		textTextField = new JTextField("" + Shape.DEFAULT_TEXT);
 		textTextField.setToolTipText("Set Text");
-	//	textTextField.addActionListener( new TextActionListener());
+		textTextField.addActionListener( new TextActionListener());
 		//Set up the fill colour button
 		fillButton = new JButton("Fill");
 		fillButton.setToolTipText("Set Fill Color");
@@ -133,6 +134,14 @@ public class A3  extends JFrame {
 		panel.setCurrentText(textTextField.getText());
 	}
 }
+	class InnerShapeActionListener  implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			 panel.setCurrentInnerShapeType(InnerShapesComboBox.getSelectedIndex());
+			}
+	}
+
+
+
 	class FillActionListener implements ActionListener {
 		public void actionPerformed( ActionEvent e) {
 			Color newColor = JColorChooser.showDialog(panel, "Fill Color", panel.getCurrentColor());

@@ -21,6 +21,10 @@ class AnimationViewer extends JComponent implements Runnable {
     private Color currentColor=Shape.DEFAULT_COLOR; // the current fill colour of a shape
     private int marginWidth=Shape.DEFAULT_MARGIN_WIDTH, marginHeight = Shape.DEFAULT_MARGIN_HEIGHT, currentWidth=Shape.DEFAULT_WIDTH, currentHeight=Shape.DEFAULT_HEIGHT;
 		private String currentText = Shape.DEFAULT_TEXT;
+		private ShapeType currentInnerShapeType = Shape.DEFAULT_SHAPETYPE;
+
+		public ShapeType getCurrentInnerShapeType(){return this.currentInnerShapeType;}
+		public void setCurrentInnerShapeType(int shapeTypeValue){currentInnerShapeType = ShapeType.values()[shapeTypeValue];}
 
 		public void setCurrentText(String text){
 			this.currentText = text;
@@ -33,25 +37,30 @@ class AnimationViewer extends JComponent implements Runnable {
 		public String getCurrentText(){return this.currentText;}
      /** Constructor of the AnimationViewer */
     public AnimationViewer(boolean isGraphicsVersion) {
-		if (isGraphicsVersion) {
-			start();
-			addMouseListener(new MyMouseAdapter());
-		}
+			if (isGraphicsVersion) {
+				start();
+				addMouseListener(new MyMouseAdapter());
+			}
     }
+
+		protected void createNewShape(int x, int y) {
     /** create a new shape
      * @param x     the x-coordinate of the mouse position
      * @param y    the y-coordinate of the mouse position */
-		 protected void createNewShape(int x, int y) {
-		 	switch (currentShapeType) {
-		 		case RECTANGLE: {
-		     		shapes.add( new RectangleShape(x, y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType, currentText));
-		             break;
-		 		} case OVAL: {
-		 			shapes.add(new OvalShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType, currentText));
-		 			break;
-		 		}
-		    }
-		 }
+		 switch (currentShapeType) {
+      case RECTANGLE: {
+      	shapes.add( new RectangleShape(x, y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType, currentText));
+          break;
+      } case OVAL: {
+      	shapes.add(new OvalShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor,currentPathType, currentText));
+      	break;
+      }case NESTED: {
+      	shapes.add(new NestedShape(x,y,currentWidth,currentHeight,marginWidth,marginHeight,currentColor, currentText,  currentInnerShapeType));
+      	break;
+      }
+     }
+	 }
+
     /**    move and paint all shapes within the animation area
      * @param g    the Graphics control */
 		 public void paintComponent(Graphics g) {

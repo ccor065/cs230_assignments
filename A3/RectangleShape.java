@@ -9,7 +9,7 @@ import java.awt.*;
 class RectangleShape extends Shape {
 
     /** default constructor to create a shape with default values */
-    public RectangleShape() {}
+  public RectangleShape() {}
 	public RectangleShape(int x, int y, int w, int h, int mw, int mh, Color c, PathType pt) {
 		super(x ,y ,w, h ,mw ,mh, c, pt);
 	}
