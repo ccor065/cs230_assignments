@@ -1,7 +1,7 @@
 /*
  *	===============================================================================
  *	NestedShape.java : A shape that is a rectangle.
- *  YOUR UPI: ANSWER
+ *  YOUR UPI: CCOR065  added constructor and overloaded createInnerShape()
  *	=============================================================================== */
 import java.awt.Color;
 import java.util.*;
@@ -15,10 +15,18 @@ class NestedShape extends RectangleShape {
 		super(x ,y ,w, h ,mw ,mh, fc, PathType.BOUNCE, text);
 		createInnerShape(ist);
 	}
-	// add a constructor
+	public NestedShape(int w, int h){
+		super(0, 0, w, h, 0, 0, Color.black,PathType.BOUNCE, "");
+	}
+// Without color
+	public Shape createInnerShape(int x, int y, int w, int h, Color c, String text, ShapeType st, ShapeType ist) {
+		 return createInnerShape(x, y, w, h, width, height, c , text, st, ist);
+		}
+	public Shape createInnerShape(ShapeType st, ShapeType ist){
+		int halfWidth = width/2, halfHeight = height/2;
+		return createInnerShape(0, 0, halfWidth, halfHeight, width, height, color, text, st, ist);
 
-	// add createInnerShape() here
-
+	}
 	public Shape createInnerShape(int x, int y, int w, int h, int mw, int mh, Color c, String text, ShapeType st, ShapeType ist) {
 		Shape s = null;
 		switch (st) {
@@ -28,7 +36,9 @@ class NestedShape extends RectangleShape {
 			} case OVAL: {
 				s = new OvalShape(x,y,w,h,mw,mh,c,PathType.BOUNCE,text);
 				break;
-			} //add one more case
+			} case NESTED: {
+				s = new NestedShape(x,y,w,h,mw,mh,c, text, ist);
+			}
 		}
 		s.setParent(this);
 		innerShapes.add(s);
