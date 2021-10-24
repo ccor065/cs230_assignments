@@ -11,8 +11,15 @@ class ShapeModelAdapter extends AbstractTableModel implements TreeModel  {
 
   public ShapeModelAdapter(){}
 
-
+  public void valueForPathChanged(TreePath path, Object newValue){}
+  public void  addTreeModelListener(final TreeModelListener tml) {treeModelListeners.add(tml);}
+  public void  removeTreeModelListener(final TreeModelListener tml) {treeModelListeners.remove(tml);}
+  public int getColumnCount(){return this.columnNames.length;}
+  public int getRowCount(){return selectedNestedShape.getSize();}
+  public String getColumnName(int column){return this.columnNames[column];}
   public Shape getRoot(){return root;}
+
+
   public boolean isLeaf(Object node){
       if (node instanceof NestedShape){
           return false;
@@ -50,12 +57,7 @@ class ShapeModelAdapter extends AbstractTableModel implements TreeModel  {
       return -1;
 
   }
-  public void valueForPathChanged(TreePath path, Object newValue){}
-  public void  addTreeModelListener(final TreeModelListener tml) {treeModelListeners.add(tml);}
-  public void  removeTreeModelListener(final TreeModelListener tml) {treeModelListeners.remove(tml);}
-  public int getColumnCount(){return this.columnNames.length;}
-  public int getRowCount(){return selectedNestedShape.getSize();}
-  public String getColumnName(int column){return this.columnNames[column];}
+
   public Object getValueAt(int rowIndex, int columnIndex){
     String atrib = columnNames[columnIndex];
     switch(atrib){
@@ -70,5 +72,35 @@ class ShapeModelAdapter extends AbstractTableModel implements TreeModel  {
     }
     return 0;
   }
+    public void insertNodeInto(Shape newChild, NestedShape parent){
+
+      fireTreeNodesInserted(parent, new Object[]{parent.getPath()}, new int[] {parent.indexOf(newChild)}, new Object[]{((Object)newChild)});
+      fireTableRowsInserted(parent.getSize(), parent.getSize()) ;
+  }
+
+  public void removeNodeFromParent(Shape selectedNode){
+       NestedShape parent = selectedNode.getParent();
+       int index = parent.indexOf(selectedNode);
+       parent.remove(selectedNode);
+       fireTreeNodesRemoved(parent, new Object[]{parent.getPath()}, new int[]{index}, new Object[]{((Object)selectedNode)});
+
+  }
+  	public void fireTreeNodesChanged(TreeModelEvent e) {}
+	protected void fireTreeNodesRemoved(Object source, Object[] path,int[] childIndices,Object[] children) {
+		final TreeModelEvent event = new TreeModelEvent(source, path, childIndices, children);
+		for (final TreeModelListener l : treeModelListeners)
+			l.treeNodesRemoved(event);
+    }
+    protected void fireTreeNodesInserted(Object source, Object[] path,int[] childIndices,Object[] children) {
+		final TreeModelEvent event = new TreeModelEvent(source, path, childIndices, children);
+		for (final TreeModelListener l : treeModelListeners)
+			l.treeNodesInserted(event);
+    }
+    protected void fireTreeStructureChanged(final Object source, final Object[] path, final int[] childIndices, final Object[] children) {
+        final TreeModelEvent event = new TreeModelEvent(source, path, childIndices, children);
+        for (final TreeModelListener l : treeModelListeners) {
+            l.treeStructureChanged(event);
+        }
+	}
 
 }
