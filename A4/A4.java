@@ -1,7 +1,8 @@
 /*
  *  ============================================================================================
  *  A1.java : Extends JFrame and contains a panel where shapes move around on the screen.
- *  YOUR UPI: ANSWER
+ *  YOUR UPI: CCOR065 Updated toinclude MyTreeSelectionListener, AddActionListener and RemoveActionListener
+ *   						class implementations.
  *  ============================================================================================
  */
 import javax.swing.*;
@@ -115,7 +116,21 @@ public class A4  extends JFrame {
             JOptionPane.showMessageDialog(null, "ERROR: Must select a NestedShape node", "ERROR: Must select a NestedShape node", JOptionPane.ERROR_MESSAGE);
         }
     }
-}
+	}
+	class RemoveActionListener   implements ActionListener  {
+    public void actionPerformed(ActionEvent e) {
+        Object node = tree.getLastSelectedPathComponent();
+        if(node ==  null){
+            //ystem.out.println("ERROR: No node selected.");
+            JOptionPane.showMessageDialog(null,"ERROR: No node selected." ,"ERROR: No node selected.", JOptionPane.ERROR_MESSAGE);
+        } else if (node ==  panel.getRoot()){
+            //System.out.println("ERROR: Must not remove the root.");
+            OptionPane.showMessageDialog(null,"ERROR: Must not remove the root." ,"ERROR: Must not remove the root.", JOptionPane.ERROR_MESSAGE);
+        } else if(node !=  panel.getRoot()){
+            panel.removeShapeNode((Shape)node);
+        }
+    }
+	}
 
 	/** Set up the tools panel
 	* @return toolsPanel		the Panel */
