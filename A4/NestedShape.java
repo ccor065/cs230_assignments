@@ -17,6 +17,7 @@ class NestedShape extends RectangleShape {
 	}
 	public NestedShape(int w, int h){
 		super(0, 0, w, h, 0, 0, Color.black,PathType.BOUNCE, "");
+		createInnerShape(ShapeType.RECTANGLE);
 	}
 // Without color
 	public Shape createInnerShape(int x, int y, int w, int h, Color c, String text, ShapeType st, ShapeType ist) {
