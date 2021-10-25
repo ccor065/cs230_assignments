@@ -94,7 +94,28 @@ public class A4  extends JFrame {
 		return dataPanel;
 	}
 	//complete inner classes here
-
+	class MyTreeSelectionListener implements TreeSelectionListener {
+	    public void valueChanged(TreeSelectionEvent e){
+	        Object node = tree.getLastSelectedPathComponent();
+	        if(node instanceof NestedShape){
+	            panel.setSelectedNestedShape((NestedShape)node);
+	        }
+	    }
+	}
+	class AddActionListener  implements ActionListener  {
+    public void actionPerformed(ActionEvent e) {
+        Object node = tree.getLastSelectedPathComponent();
+        if(node instanceof NestedShape){
+            panel.addShapeNode((NestedShape)node);
+        } else if (node == null){
+              //System.out.println("ERROR: No node selected.");
+            JOptionPane.showMessageDialog(null, "ERROR: No node selected.", "ERROR: No node selected.", JOptionPane.ERROR_MESSAGE);
+        } else if (!(node instanceof NestedShape)){
+            //System.out.println("ERROR: Must select a NestedShape node.");
+            JOptionPane.showMessageDialog(null, "ERROR: Must select a NestedShape node", "ERROR: Must select a NestedShape node", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
 
 	/** Set up the tools panel
 	* @return toolsPanel		the Panel */
