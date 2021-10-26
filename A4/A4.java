@@ -44,7 +44,7 @@ public class A4  extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
-		//setLocation((d.width - frameSize.width) / 2, (d.height - frameSize.height) / 2);
+		setLocation((d.width - frameSize.width) / 2, (d.height - frameSize.height) / 2);
 		pack();
 		setVisible(true);
 	}
@@ -66,23 +66,23 @@ public class A4  extends JFrame {
 	public JPanel setUpDataPanel() {
 		JPanel tablePanel = new JPanel(new BorderLayout());
 		panel.setPreferredSize(new Dimension(Shape.DEFAULT_MARGIN_WIDTH, Shape.DEFAULT_MARGIN_HEIGHT/2));
-		//table = new JTable(panel.getShapeModelAdapter());
+		table = new JTable(panel.getShapeModelAdapter());
 		JScrollPane tableScrollpane = new JScrollPane(table);
 		tableScrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		tablePanel.add(tableScrollpane,BorderLayout.CENTER);
 		JPanel treePanel = new JPanel(new BorderLayout());
 		treePanel.setPreferredSize(new Dimension(Shape.DEFAULT_MARGIN_WIDTH, Shape.DEFAULT_MARGIN_HEIGHT/2));
-		//tree = new JTree(panel.getShapeModelAdapter());
+		tree = new JTree(panel.getShapeModelAdapter());
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setShowsRootHandles(true);
-		//tree.addTreeSelectionListener(new MyTreeSelectionListener());
+		tree.addTreeSelectionListener(new MyTreeSelectionListener());
 		JScrollPane treeScrollpane = new JScrollPane(tree);
 		treePanel.add(treeScrollpane,BorderLayout.CENTER);
 		JPanel treeButtonsPanel = new JPanel();
 		addNodeButton = new JButton("Add Node");
-		//addNodeButton.addActionListener( new AddActionListener());
+		addNodeButton.addActionListener( new AddActionListener());
 		removeNodeButton = new JButton("Remove Node");
-		//removeNodeButton.addActionListener( new RemoveActionListener());
+		removeNodeButton.addActionListener( new RemoveActionListener());
 		treeButtonsPanel.add(addNodeButton);
 		treeButtonsPanel.add(removeNodeButton);
 		treePanel.add(treeButtonsPanel,BorderLayout.NORTH);
@@ -124,8 +124,8 @@ public class A4  extends JFrame {
             //ystem.out.println("ERROR: No node selected.");
             JOptionPane.showMessageDialog(null,"ERROR: No node selected." ,"ERROR: No node selected.", JOptionPane.ERROR_MESSAGE);
         } else if (node ==  panel.getRoot()){
-            //System.out.println("ERROR: Must not remove the root.");
-            OptionPane.showMessageDialog(null,"ERROR: Must not remove the root." ,"ERROR: Must not remove the root.", JOptionPane.ERROR_MESSAGE);
+            //System..println("ERROR: Must not remove the root.");
+            JOptionPane.showMessageDialog(null,"ERROR: Must not remove the root." ,"ERROR: Must not remove the root.", JOptionPane.ERROR_MESSAGE);
         } else if(node !=  panel.getRoot()){
             panel.removeShapeNode((Shape)node);
         }
